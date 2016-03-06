@@ -35,12 +35,13 @@
     </div>
   </nav>
 
+
 <div style="background-color:SlateBlue">
-	<p style="font-size:22pt; color:white">ADD COURSE :: </p>
+	<p style="font-size:22pt; color:white">REGISTER STUDENT FOR A COURSE :: </p>
 </div>
 <!-- <div class="container" style="margin-top:0%; padding:5px;"> -->
 	<!-- <div class="row" style="padding:10px;"> -->
-		<form method="post" action="{% url 'GMS:saveCourse' %}">
+		<form method="post" action="{% url 'GMS:saveRegisterStudent' %}">
 			{% csrf_token %}
 			{% if form.errors %}
 				<div class="row">
@@ -61,67 +62,17 @@
 			<div class="row" align="center">
 		      <div class="row">
 		        <div class="input-field col s5">
-		          <input name="name" type="text" class="validate">
-		          <label for="name">Name</label></input>
+		          <input name="suserid" type="text" class="validate">
+		          <label for="suserid">Student User - ID</label></input>
 		        </div>
 		      </div>
 		      <div class="row">
 		        <div class="input-field col s5">
 		          <input name="courseid" type="text" class="validate">
-		          <label for="courseid">Course ID</label>
+		          <label for="courseid">Course - ID</label>
 		        </div>
 		      </div>
-		      <!-- <div class="row">
-		        <div class="input-field col s5">
-		          <input name="password" type="password" class="validate">
-		          <label for="password">Password</label>
-		        </div>
-		      </div> -->
-		      <!-- <div class="row">
-		      	<label style="margin-right:91.8%;font-size:15px">Branch Select</label>
-		      <div class="input-field col s5" >
-			    <select class="browser-default" name="branch">
-			      <option value="" disabled selected>Choose your option</option>
-			      <option value=1>Computer Science and Engineering</option>
-			      <option value=2>Electrical Engineering</option>
-			      <option value=3>Mechanical Engineering</option>
-			    </select>
-			  </div>
-			</div> -->
-			<div class="row">
-		        <div class="input-field col s5">
-		          <input id="LTP" name="LTP" type="email" class="validate">
-		          <label for="LTP">L-T-P</label>
-		        </div>
-		      </div>
-		      <div class="row">
-		      	<label style="margin-right:92.3%;font-size:15px">Credit Select</label>
-		      <div class="input-field col s5" >
-			    <select class="browser-default" name="credit">
-			      <option value="" disabled selected>Choose your option</option>
-			      <option value=5>5</option>
-			      <option value=4>4</option>
-			      <option value=3>3</option>
-			      <option value=0>0</option>
-			    </select>
-			  </div>
-			</div>		
-			<div class="row">
-		      	<label style="margin-right:89.0%;font-size:15px">Course Type Select</label>
-		      <div class="input-field col s5" >
-			    <select class="browser-default" name="courseType">
-			      <option value="" disabled selected>Choose your option</option>
-			      <option value=0>Audit</option>
-			      <option value=1>Credit</option>
-			    </select>
-			  </div>
-			</div>		
-		      <div class="row">
-		        <div class="input-field col s5">
-		          <input id="Iuserid" name="Iuserid" type="text" class="validate">
-		          <label for="Iuserid">Instructor User - ID</label>
-		        </div>
-		      </div>
+		      
 		  </div>
 		  &nbsp;
 			<button class="btn waves-effect waves-light" type="submit" name="action">Submit

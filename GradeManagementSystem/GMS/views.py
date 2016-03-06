@@ -26,6 +26,56 @@ def admin(request):
 			return render(request, 'GMS/home.html', {'user' : user})
 	else:
 		return HttpResponseRedirect(reverse('GMS:login'))
+
+def registerStudent(request):
+	if "loggedinuserid" in request.session:
+		user = User.objects.get(userID = request.session["loggedinuserid"])
+		if(user.role==2):
+			return render(request, 'GMS/registerStudent.html', {'user' : user})
+		else:
+			return render(request, 'GMS/home.html', {'user' : user})
+	else:
+		return HttpResponseRedirect(reverse('GMS:login'))
+
+def successregisterStudent(request):
+	if "loggedinuserid" in request.session:
+		user = User.objects.get(userID = request.session["loggedinuserid"])
+		if(user.role==2):
+			return render(request, 'GMS/successregisterStudent.html', {'user' : user})
+		else:
+			return render(request, 'GMS/home.html', {'user' : user})
+	else:
+		return HttpResponseRedirect(reverse('GMS:login'))
+def successaddStudent(request):
+	if "loggedinuserid" in request.session:
+		user = User.objects.get(userID = request.session["loggedinuserid"])
+		if(user.role==2):
+			return render(request, 'GMS/successaddStudent.html', {'user' : user})
+		else:
+			return render(request, 'GMS/home.html', {'user' : user})
+	else:
+		return HttpResponseRedirect(reverse('GMS:login'))
+
+def successaddInstructor(request):
+	if "loggedinuserid" in request.session:
+		user = User.objects.get(userID = request.session["loggedinuserid"])
+		if(user.role==2):
+			return render(request, 'GMS/successaddInstructor.html', {'user' : user})
+		else:
+			return render(request, 'GMS/home.html', {'user' : user})
+	else:
+		return HttpResponseRedirect(reverse('GMS:login'))
+
+def successaddCourse(request):
+	if "loggedinuserid" in request.session:
+		user = User.objects.get(userID = request.session["loggedinuserid"])
+		if(user.role==2):
+			return render(request, 'GMS/successaddCourse.html', {'user' : user})
+		else:
+			return render(request, 'GMS/home.html', {'user' : user})
+	else:
+		return HttpResponseRedirect(reverse('GMS:login'))
+
 def addStudent(request):
 	if "loggedinuserid" in request.session:
 		user = User.objects.get(userID = request.session["loggedinuserid"])
@@ -68,19 +118,47 @@ def saveCourse(request):
 	user1 = User.objects.get(userID = request.session["loggedinuserid"])
 	if courseid == '':
 		return render_to_response('GMS/addCourse.html', c)
+	user = User.objects.get(userID = userid)
 	try:
-		user = User.objects.get(userID = userid)
-	except(KeyError, User.DoesNotExist):
+		instructor = Instructor.objects.get(user=user)
+	except(KeyError, Instructor.DoesNotExist):
 		c.update({ 'error_message':'Invalid Instructor User - ID' })
 		return render(request, 'GMS/addCourse.html', c)
 	else:
-		instructor = Instructor.objects.get(user=user)
 		c=Course(instructor=instructor,courseID=courseid,name=name,LTP=LTP,credits=credit,courseType=courseType,gradesUploaded=0)
 		c.save()
 		if(user1.role==2):
 			return render(request, 'GMS/admin.html', {'user' : user1})
 		else:
 			return render(request, 'GMS/home.html', {'user' : user1})
+
+def saveRegisterStudent(request):
+	suserid = request.POST.get('suserid','')
+	courseid = request.POST.get('courseid','')
+	c = {}
+	c.update(csrf(request))
+	user1 = User.objects.get(userID = request.session["loggedinuserid"])
+	if courseid == '':
+		return render_to_response('GMS/addCourse.html', c)
+	user = User.objects.get(userID = suserid)
+	try:
+		student=Student.objects.get(user=user)
+	except(KeyError, Student.DoesNotExist):
+		c.update({ 'error_message':'Invalid Student User - ID' })
+		return render(request, 'GMS/registerStudent.html', c)
+	else:
+		try:
+			course=Course.objects.get(courseID=courseid)
+		except(KeyError, Course.DoesNotExist):
+			c.update({ 'error_message':'Invalid Course - ID' })
+			return render(request, 'GMS/registerStudent.html', c)
+		else:
+			student.allCourses.add(course)
+			student.save()
+			if(user1.role==2):
+				return render(request, 'GMS/successregisterStudent.html', {'user' : user1})
+			else:
+				return render(request, 'GMS/home.html', {'user' : user1})
 
 def saveInstructor(request):
 	name = request.POST.get('name','')

@@ -16,6 +16,12 @@ urlpatterns = [
            url(r'^addInstructor/$', views.addInstructor, name = 'addInstructor'),
            url(r'^addCourse/$', views.addCourse, name = 'addCourse'),
            url(r'^saveStudent/$', views.saveStudent, name = 'saveStudent'),
+           url(r'^registerStudent/$', views.registerStudent, name = 'registerStudent'),
+           url(r'^successregisterStudent/$', views.successregisterStudent, name = 'successregisterStudent'),
+           url(r'^successaddStudent/$', views.successaddStudent, name = 'successaddStudent'),
+           url(r'^successaddInstructor/$', views.successaddInstructor, name = 'successaddInstructor'),
+           url(r'^successaddCourse/$', views.successaddCourse, name = 'successaddCourse'),
+           url(r'^saveRegisterStudent/$', views.saveRegisterStudent, name = 'saveRegisterStudent'),
            url(r'^saveCourse/$', views.saveCourse, name = 'saveCourse'),
            url(r'^saveInstructor/$', views.saveInstructor, name = 'saveInstructor')
 ]
